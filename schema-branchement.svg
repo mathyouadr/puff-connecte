@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 780" font-family="Segoe UI, Arial, sans-serif">
+  <style>
+    .bg { fill: #fafaf7; }
+    .ink { fill: #1d1d1f; }
+    .muted { fill: #6b6b70; }
+    .box { fill: #ffffff; stroke: #d8d8d2; }
+    .wire { fill: none; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+    .wbat { stroke: #7b2cbf; }
+    .wgnd { stroke: #1d1d1f; }
+    .wsig { stroke: #e8a400; }
+    .tbat { fill: #7b2cbf; }
+    .tsig { fill: #b07c00; }
+    .dot { fill: #1d1d1f; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #17181a; }
+      .ink { fill: #f2f2f2; }
+      .muted { fill: #a0a0a6; }
+      .box { fill: #202124; stroke: #3a3b3f; }
+      .wgnd { stroke: #e6e6e6; }
+      .wbat { stroke: #b57bee; }
+      .tbat { fill: #c79bf2; }
+      .tsig { fill: #ffc233; }
+      .dot { fill: #e6e6e6; }
+    }
+  </style>
+
+  <rect class="bg" width="960" height="780"/>
+
+  <text class="ink" x="40" y="45" font-size="22" font-weight="700">Puff connecté : schéma de branchement</text>
+  <text class="muted" x="40" y="70" font-size="14">Le PCB de la puff reste intact : on branche l'ESP32 sur la sortie du capteur.</text>
+
+  <!-- PCB de la puff -->
+  <rect x="38" y="250" width="14" height="34" rx="2" fill="#9aa0a6"/>
+  <rect x="50" y="110" width="300" height="300" rx="12" fill="#2f5d3a"/>
+  <text x="200" y="140" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">PCB de la puff</text>
+  <text x="200" y="158" font-size="11" fill="#cfe3d3" text-anchor="middle">charge USB-C + capteur d'aspiration</text>
+  <text x="62" y="271" font-size="11" fill="#ffffff">USB-C</text>
+  <circle cx="140" cy="215" r="40" fill="#1a1a1a"/>
+  <text x="140" y="212" font-size="12" font-weight="600" fill="#ffffff" text-anchor="middle">Capteur</text>
+  <text x="140" y="228" font-size="10.5" fill="#ffffff" text-anchor="middle">d'aspiration</text>
+  <rect x="340" y="176" width="20" height="14" rx="2" fill="#d4a017"/>
+  <text x="330" y="187" font-size="11" font-weight="600" fill="#ffffff" text-anchor="end">OUT (sortie capteur)</text>
+  <rect x="143" y="403" width="14" height="14" rx="2" fill="#d4a017"/>
+  <rect x="243" y="403" width="14" height="14" rx="2" fill="#d4a017"/>
+  <text x="150" y="395" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">B−</text>
+  <text x="250" y="395" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">B+</text>
+
+  <!-- Batterie (déjà soudée au PCB) -->
+  <line class="wire wgnd" x1="150" y1="417" x2="150" y2="462"/>
+  <line class="wire wbat" x1="250" y1="417" x2="250" y2="462"/>
+  <rect x="140" y="462" width="20" height="8" rx="2" fill="#9aa0a6"/>
+  <rect x="240" y="462" width="20" height="8" rx="2" fill="#9aa0a6"/>
+  <rect x="110" y="470" width="180" height="75" rx="10" fill="#3b3f46"/>
+  <text x="200" y="502" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Batterie de la puff</text>
+  <text x="200" y="522" font-size="11" fill="#ffffff" text-anchor="middle">3,3 V</text>
+  <text class="ink" x="128" y="458" font-size="14" font-weight="700" text-anchor="middle">−</text>
+  <text class="ink" x="272" y="458" font-size="14" font-weight="700" text-anchor="middle">+</text>
+
+  <!-- B+ vers 3V3 -->
+  <path class="wire wbat" d="M250,440 H560 V360 H640"/>
+  <circle class="dot" cx="250" cy="440" r="5"/>
+  <text class="tbat" x="405" y="432" font-size="12" font-weight="600" text-anchor="middle">B+</text>
+
+  <!-- B− vers GND -->
+  <path class="wire wgnd" d="M150,440 H90 V600 H740 V480"/>
+  <circle class="dot" cx="150" cy="440" r="5"/>
+  <text class="ink" x="415" y="622" font-size="13" font-weight="600" text-anchor="middle">B−</text>
+
+  <!-- Signal -->
+  <line class="wire wsig" x1="360" y1="183" x2="640" y2="183"/>
+  <text class="tsig" x="500" y="175" font-size="12" font-weight="600" text-anchor="middle">signal</text>
+
+  <!-- ESP32 -->
+  <rect x="640" y="150" width="200" height="330" rx="10" fill="#1f3b5c"/>
+  <rect x="700" y="165" width="120" height="70" rx="4" fill="#c9ccd1"/>
+  <text x="760" y="204" font-size="11" font-weight="600" fill="#2b2b2b" text-anchor="middle">ESP32-WROOM</text>
+  <text x="740" y="300" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">ESP32 DevKit</text>
+  <text x="650" y="188" font-size="12" fill="#ffffff">GPIO4</text>
+  <text x="650" y="365" font-size="12" fill="#ffffff">3V3</text>
+  <text x="740" y="468" font-size="12" fill="#ffffff" text-anchor="middle">GND</text>
+  <circle cx="640" cy="183" r="6" fill="#d4a017"/>
+  <circle cx="640" cy="360" r="6" fill="#d4a017"/>
+  <circle cx="740" cy="480" r="6" fill="#d4a017"/>
+
+  <!-- Notes -->
+  <rect class="box" x="40" y="645" width="880" height="115" rx="8"/>
+  <text class="ink" x="60" y="672" font-size="13">• Quand on aspire, la sortie du capteur (OUT) passe à la tension batterie et GPIO4 passe à l'état haut.</text>
+  <text class="ink" x="60" y="696" font-size="13">• L'ESP32 est alimenté par la batterie de la puff : B+ sur 3V3, B− sur GND.</text>
+  <text class="ink" x="60" y="720" font-size="13">• Recharge par l'USB-C de la puff. Pas de coupure basse tension : ne pas vider la batterie à fond.</text>
+  <text class="ink" x="60" y="744" font-size="13">• Pour flasher l'ESP32 en USB, débrancher B+ de l'ESP32.</text>
+</svg>

@@ -1,0 +1,57 @@
+# Puff connecté : une aspiration dans une puff déclenche une action Home Assistant.
+# Adapter les valeurs de "substitutions", puis : esphome run puff-connecte.yaml
+
+substitutions:
+  name: puff-connecte
+  friendly_name: Puff connecté
+  board: esp32dev
+  pin: GPIO4
+  # Action Home Assistant lancée à chaque aspiration, et sa cible.
+  action: light.toggle
+  entity_id: light.ma_lampe
+  # OUT monte à la tension batterie quand on aspire (cas courant) :
+  #   pulldown "true", pullup "false", inverted "false".
+  # OUT descend à 0 V quand on aspire : pulldown "false", pullup "true", inverted "true".
+  pulldown: "true"
+  pullup: "false"
+  inverted: "false"
+
+esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
+
+esp32:
+  board: ${board}
+
+logger:
+
+api:
+  encryption:
+    key: !secret api_key
+
+ota:
+  - platform: esphome
+    password: !secret ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+binary_sensor:
+  - platform: gpio
+    name: "Aspiration"
+    pin:
+      number: ${pin}
+      inverted: ${inverted}
+      mode:
+        input: true
+        pulldown: ${pulldown}
+        pullup: ${pullup}
+    filters:
+      - delayed_off: 100ms  # lisse le PWM que certains capteurs envoient sur leur sortie
+      - delayed_on: 50ms    # anti-rebond : ignore les parasites très courts
+    on_press:
+      - homeassistant.action:
+          action: ${action}
+          data:
+            entity_id: ${entity_id}
